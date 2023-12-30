@@ -1,0 +1,31 @@
+[package]
+name = "engineioxide-e2e"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+engineioxide = { path = "../../engineioxide", default-features = false, features = [
+    "tracing",
+] }
+hyper-util = { workspace = true, features = ["tokio"] }
+hyper = { workspace = true, features = ["server", "http1"] }
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+tracing-subscriber.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+
+[[bin]]
+name = "engineioxide-e2e"
+path = "engineioxide.rs"
+
+[features]
+v3 = ["engineioxide/v3"]
+v4 = []

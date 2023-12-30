@@ -1,0 +1,16 @@
+[package]
+name = "viz-echo"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+viz = ">=0.7.1"
+socketioxide.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+tracing-subscriber.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+
+[[bin]]
+name = "viz-echo"
+path = "viz_echo.rs"

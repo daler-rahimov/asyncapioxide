@@ -1,0 +1,41 @@
+[workspace]
+members = ["asyncapioxide", "examples/*"]
+# TODO: run all e2e tests from socketioxide againts asyncapioxide
+# members = ["engineioxide", "socketioxide", "e2e/*", "examples/*"]
+resolver = "2"
+
+[workspace.dependencies]
+socketioxide = { version="0.9.1", features = ["tracing", "state", "extensions"] }
+tokio = "1.35.0"
+tokio-tungstenite = "0.21.0"
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+tower = { version = "0.4.13", default-features = false }
+http = "1.0.0"
+tracing = "0.1.37"
+hyper = { version = "1.0.1", features = ["http1", "http2", "server"] }
+hyper-util.version = "0.1.1"
+proc-macro2 = "1.0.71"
+schemars = "0.8.2"
+
+# Dev deps
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+# criterion = { version = "0.5.1", features = ["html_reports"] }
+axum = "0.7.2"
+salvo = { version = "0.63.0", features = ["tower-compat"] }
+# rust_socketio = { version = "0.4.2", features = ["async"] }
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.73.0"
+authors = ["Daler Rahimov <"]
+repository = "https://github.com/daler-rahimov/asyncapioxide"
+homepage = "https://github.com/daler-rahimov/asyncapioxide"
+keywords = ["socketio", "tower", "axum", "hyper", "websocket", "asycnapi"]
+categories = [
+    "asynchronous",
+    "network-programming",
+    "web-programming::websocket",
+]
+license = "MIT"
