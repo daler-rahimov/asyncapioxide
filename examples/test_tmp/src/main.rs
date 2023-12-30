@@ -1,30 +1,22 @@
 use asyncapioxide::gen_doc;
+use schemars;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-// #[gen_doc]
 #[derive(Deserialize, Serialize, Debug, Clone, JsonSchema)]
-struct Username(String);
+struct User {
+    username: String,
+    password: String,
+}
 
 #[gen_doc(
     on ="todo:create",
-    response_model = Username,
-    request_model = Username,
-    emits = (
+    response_model = "User",
+    request_model = "User",
+    emits = [
         (event = "todo:created", model = "Username", description = "some description")
-    )
+    ]
 )]
-pub fn create() {
+fn main() {
     todo!()
 }
-
-// #[gen_doc(
-//     on ="todo:create",
-//     response_model = Username,
-//     request_model = Username,
-//     emits = (
-//         (event = "todo:created", model = "Username", description = "some description")
-//     )
-// )]
-
-fn main() {}
