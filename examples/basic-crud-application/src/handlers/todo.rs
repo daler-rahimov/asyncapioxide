@@ -41,14 +41,14 @@ impl Todos {
     }
 }
 
-#[asycnapioxide::gen_doc(
-    on = "todo:create",
-    response_model = Ack,
-    request_model = PartialTodo,
-    emits =(
-        (event: "todo:created", model: Todo, discription = "some discription")
-    )
-)]
+// #[asycnapioxide::gen_doc(
+//     on = "todo:create",
+//     response_model = Ack,
+//     request_model = PartialTodo,
+//     emits =(
+//         (event: "todo:created", model: Todo, discription = "some discription")
+//     )
+// )]
 pub fn create(s: SocketRef, Data(data): Data<PartialTodo>, ack: AckSender, todos: State<Todos>) {
     let id = Uuid::new_v4();
     let todo = Todo { id, inner: data };

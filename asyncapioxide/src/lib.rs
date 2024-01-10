@@ -146,9 +146,9 @@ impl syn::parse::Parse for GenDocArgs {
 }
 
 #[proc_macro_attribute]
-pub fn gen_doc(attr: TokenStream, item: TokenStream) -> TokenStream {
-    // Parse the function this attribute is attached to
-    let _input_fn = parse_macro_input!(item as ItemFn);
+pub fn asyncapi_doc(attr: TokenStream, item: TokenStream) -> TokenStream {
+    // Parse the original function this attribute is attached to
+    let mut input_fn = parse_macro_input!(item as ItemFn);
 
     // Parse the attributes passed to the macro
     let args = parse_macro_input!(attr as GenDocArgs);
@@ -173,7 +173,7 @@ pub fn gen_doc(attr: TokenStream, item: TokenStream) -> TokenStream {
     });
 
     let schema_print_statements = quote! {
-        fn main() {
+        fn gen_asyncapi_docs() {
             let schema1 = schemars::schema_for!(#request_model_ident);
             let schema2 = schemars::schema_for!(#response_model_ident);
             println!("request schema1: {}", serde_json::to_string_pretty(&schema1).unwrap());
@@ -183,9 +183,24 @@ pub fn gen_doc(attr: TokenStream, item: TokenStream) -> TokenStream {
         }
     };
 
-    let _expanded = quote! {
-        #_input_fn
+    // Modify the original function to call main2
+    let original_block = input_fn.block;
+    input_fn.block = syn::parse(
+        quote! {
+            {
+                gen_asyncapi_docs(); // call the generated main2 function
+                #original_block // original function body
+            }
+        }
+        .into(),
+    )
+    .unwrap();
+
+    // Combine the generated function and the modified original function
+    let expanded = quote! {
+        #schema_print_statements
+        #input_fn
     };
 
-    TokenStream::from(schema_print_statements)
+    TokenStream::from(expanded)
 }

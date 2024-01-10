@@ -17,6 +17,7 @@ hyper = { version = "1.0.1", features = ["http1", "http2", "server"] }
 hyper-util.version = "0.1.1"
 proc-macro2 = "1.0.71"
 schemars = "0.8.2"
+asyncapi = "0.2.0"
 
 # Dev deps
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }

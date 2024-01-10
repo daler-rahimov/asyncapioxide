@@ -5,6 +5,7 @@ edition.workspace = true
 
 
 [dependencies]
+asyncapi.workspace = true
 asyncapioxide = { path = "../../asyncapioxide" }
 socketioxide = { workspace = true, features = ["state"] }
 uuid = { version = "1.6.1", features = ["v4", "serde"] }
@@ -17,4 +18,6 @@ tracing.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 schemars.workspace = true
+indexmap = "1.9.3"
+serde_yaml = "0.9.30"
 
